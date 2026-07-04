@@ -19,6 +19,18 @@ yet officially supported by the gem.
 The tarball contains `lib/` with OR-Tools and all its dependencies:
 `abseil`, `protobuf`, `re2`, `HiGHS`, `SCIP`, `Coin-OR CBC/Clp/CoinUtils/Osi/Cgl/OsiClp`, `bzip2`, `zlib`.
 
+#### How it's built
+
+The tarball is built from [`or-tools-trixie/Dockerfile`](or-tools-trixie/Dockerfile),
+which clones OR-Tools `v9.15` from Google's official repository and builds it with CMake
+on `debian:trixie-slim`. The build is **manual** and run rarely — only when bumping the
+OR-Tools or Debian version — with the exact build → extract → verify → upload steps
+documented in that Dockerfile's header.
+
+Consumers pin the asset by SHA256 (MaMpf's `docker/production/Dockerfile` and
+`.devcontainer/boot.sh`), so a rebuilt tarball must either keep the same checksum or land
+together with an update to those pins.
+
 #### Licenses
 
 - OR-Tools, abseil, SCIP (v9+): [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
